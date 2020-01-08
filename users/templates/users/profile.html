@@ -1,0 +1,6 @@
+<!-- This template is used to define how user profile pages look-->
+{% extends "main/base.html" %}<!-- Inherits the base template, stops having to rewrite code -->
+{% load crispy_forms_tags %}<!-- loads in the crispy forms module installed in settings.py for styling -->
+{% block content %}
+    <h1>{{user.username}}</h1>
+{% endblock content %}

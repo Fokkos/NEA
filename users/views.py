@@ -18,4 +18,9 @@ def register(request): #Handles the user registration form and ensures that the 
         form = RegistrationForm() #Sends off the UserCreation form as a blank for user to enter data into.
     return render(request, 'users/register.html', {'form':form}) #Registers the UserCreationForm as a form and sends it to the. register template
 
+def profile(request): #Handles the generation of a user profile page
+    return render (request, "users/profile.html") #renders the tenplate "profile.html"
+
+    
+
 
