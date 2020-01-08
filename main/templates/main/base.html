@@ -45,12 +45,12 @@
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               <!-- Links to registration and login respectively -->
-              {% if user.is_authenticated %}
-                <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+              {% if user.is_authenticated %} <!--Checks to see if user is logged in or not-->
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a> <!--Links user to logout page and logs them out-->
                 <a class="nav-item nav-link" href="#">Account</a>
               {% else %}
-                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a> <!--Links user to login page-->
+                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a> <!--Links user to sign up page-->
               {% endif %}
             </div>
           </div>
