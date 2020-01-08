@@ -8,6 +8,6 @@ urlpatterns = [                  #urlpatterns links urls to certain views or fun
     path('', include('main.urls')), #Path to main module
     path('register/', registration_views.register, name='register'), #Path to registration module
     path('login/', login_views.LoginView.as_view(template_name='users/login.html'), name = 'login'), #Path to premade django login module
-    path('logout/', login_views.LogoutView.as_view(), name = 'logout' ), #Path to premade django logout module
+    path('logout/', login_views.LogoutView.as_view(template_name='users/logout.html'), name = 'logout' ), #Path to premade django logout module
 ]
 

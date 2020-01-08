@@ -1,1 +1,5 @@
 {% extends 'main/base.html' %} <!-- Inherits the base template, stops having to rewrite code -->
+{% block content %}
+    <h1>Logged out</h1>
+    <a href={% url 'index' %}>Return to index</a> <!-- returns user to the index page when they have logged out-->
+{% endblock content %}
