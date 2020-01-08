@@ -1,19 +1,20 @@
-{% extends "main/base.html" %}
-{% load crispy_forms_tags %}
+<!-- This template is used to define how the registration page looks and functions-->
+{% extends "main/base.html" %}<!-- Inherits the base template, stops having to rewrite code -->
+{% load crispy_forms_tags %}<!-- loads in the crispy forms module installed in settings.py for styling -->
 {% block content %}
     <div class="content-section">
-        <form method="POST">
-            {% csrf_token %}
+        <form method="POST"><!--Makes the button send a POST method-->
+            {% csrf_token %}<!-- Used for helping to prevent CSRF attacks. a hidden value that validates requests making transmissions more secure-->
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Sign Up </legend>
-                {{ form|crispy }}
+                <legend class="border-bottom mb-4">Sign up </legend><!-- Legend class acts as a header for the form (bootstrap)-->
+                {{ form|crispy }}<!-- imports the form itself and styles the form using crispy-->
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Sign Up</button>
+                <button class="btn btn-outline-info" type="submit">Sign up</button><!-- Button to submit info entered-->
             </div>
         </form>
         <div class="border-top pt-3">
-            <small class="text-muted">Already Have An Account? <a class="ml-2" href={% url 'login' %}>Sign In</a></small>
+            <small class="text-muted">Have An Account? <a class="ml-2" href={% url 'register' %}>Sign In</a></small><!-- link to register page-->
         </div>
     </div>
 {% endblock content %}
