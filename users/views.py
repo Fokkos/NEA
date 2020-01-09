@@ -4,6 +4,7 @@
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm #Custom form defined in forms.py that includes email!
 from django.contrib import messages #Used for flash messages in register
+from django.contrib.auth.decorators import login_required #Ensures that a user must be logged in to access some pages.
 
 
 def register(request): #Handles the user registration form and ensures that the premade Django form loads correctly
@@ -18,6 +19,7 @@ def register(request): #Handles the user registration form and ensures that the 
         form = RegistrationForm() #Sends off the UserCreation form as a blank for user to enter data into.
     return render(request, 'users/register.html', {'form':form}) #Registers the UserCreationForm as a form and sends it to the. register template
 
+@login_required #Means that to access this view, user must be logged in.
 def profile(request): #Handles the generation of a user profile page
     return render (request, "users/profile.html") #renders the tenplate "profile.html"
 
