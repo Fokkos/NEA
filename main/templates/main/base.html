@@ -47,7 +47,7 @@
               <!-- Links to registration and login respectively -->
               {% if user.is_authenticated %} <!--Checks to see if user is logged in or not-->
                 <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a> <!--Links user to logout page and logs them out-->
-                <a class="nav-item nav-link" href="#">Account</a>
+                <a class="nav-item nav-link" href="profile">{{user.username}}</a> <!-- Shows user their username and links to profile page-->
               {% else %}
                 <a class="nav-item nav-link" href="{% url 'login' %}">Login</a> <!--Links user to login page-->
                 <a class="nav-item nav-link" href="{% url 'register' %}">Register</a> <!--Links user to sign up page-->
