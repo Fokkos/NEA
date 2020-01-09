@@ -120,6 +120,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
-CRISPY_TEMPLATE_PACK='bootstrap4'
-LOGIN_REDIRECT_URL = 'index'
+STATIC_URL = '/static/' #Defines URL where static files are stored
+LOGIN_REDIRECT_URL = 'index' #Defines URL where users are taken once logged in
+LOGIN_URL = 'login' #Defines URL where users are taken if not logged in and page requires login
