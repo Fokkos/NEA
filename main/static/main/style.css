@@ -29,7 +29,7 @@ body {
   
   /*Custom tag that defines the properties of the subsection tags in the navbar*/
   .site-header .navbar-nav .nav-link {
-    color: #cbdbd0;
+    color: #000000;
   }
   
   /*Custom tag that defined the properties of the subsection tags when they are hovered over by the mouse on the navbar*/
