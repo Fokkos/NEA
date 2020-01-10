@@ -4,8 +4,23 @@
 {% block content %}
     <div class = "content-section"> <!--Loads custom CSS content section (defined in styles.css)-->
         <div class="media">
-            <img src="{{user.profile.pfp.url}}" class="rounded-circle"> <!--Loads pfp and formats as circle-->
+            <img src="{{user.profile.pfp.url}}" class="rounded-circle" style="width:80px;height:80px;" > <!--Loads pfp and formats as circle-->
+            <div class="media-body">
+                <h2 class="account-heading">{{ user.username }}</h2>
+                <p class="text-secondary">{{ user.email }}</p>
+            </div>
         </div>
+        <form method="POST" enctype="multipart/form-data"><!--Makes the button send a POST method-->
+            {% csrf_token %}<!-- Used for helping to prevent CSRF attacks. a hidden value that validates requests making transmissions more secure-->
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Update user info </legend><!-- Legend class acts as a header for the form (bootstrap)-->
+                {{userForm.as_p}}
+                {{profileForm.as_p}}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Update</button><!-- Button to submit info entered-->
+            </div>
+        </form>
     </div>
 
 {% endblock content %}>

@@ -2,7 +2,7 @@
 #Render is used for rendering templates
 #Redirect is used for redirecting users back to the homepage when an account is created
 from django.shortcuts import render, redirect
-from .forms import RegistrationForm #Custom form defined in forms.py that includes email!
+from .forms import RegistrationForm, updateUser, updateProfile #Custom forms defined in forms.py
 from django.contrib import messages #Used for flash messages in register
 from django.contrib.auth.decorators import login_required #Ensures that a user must be logged in to access some pages.
 
@@ -21,8 +21,23 @@ def register(request): #Handles the user registration form and ensures that the 
 
 @login_required #Means that to access this view, user must be logged in.
 def profile(request): #Handles the generation of a user profile page
-    return render (request, "users/profile.html") #renders the tenplate "profile.html"
-
+    if request.method == "POST": #If the view is loaded via the submit button, do the following
+        userForm = updateUser(request.POST, instance=request.user) #Loads the user form and fills with data from the POST
+        profileForm = updateProfile(request.POST, request.FILES, instance=request.user.profile) #FILES is used to access pfp file
+        if userForm.is_valid and profileForm.is_valid: #Checks to see if the input data is valid or not
+            userForm.save() #Saves the User model
+            profileForm.save() #Saves changes to the Profile model
+            messages.success(request, f"changes saved!") #Lets user know their changes have been saved to the model
+            return redirect("profile") #Reloads page with GET method and fills form with updated info
+    else:
+        userForm = updateUser(instance=request.user)
+        profileForm = updateProfile(instance=request.user.profile)
     
+    
+    context={"userForm" : userForm, "profileForm" : profileForm}
+
+    return render (request, "users/profile.html", context) #renders the tenplate "profile.html"
+
+        
 
 
