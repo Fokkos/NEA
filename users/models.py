@@ -1,12 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import User #Imports the user model
+from django.dispatch import receiver
+from django.db.models.signals import post_save #Signal sent at the end of a save() in order to save the files
 # Create your models here.
 
 class Profile(models.Model): #Defines the model that extends the User model
     user = models.OneToOneField(User, on_delete=models.CASCADE) #Defines a one-to-one model with User
     pfp = models.ImageField(default='media/pfps/default.png', upload_to='media/pfps') #Define field that will hold profile pictures
     description = models.TextField(max_length=200, default="") #User Profile description
-
-    def __str__(self): #Defines what gets displayed when a Profile is displayed (customises)
-        return f'{self.user.username} \'s Profile' #Prints "username"'s profile
     
+    def __str__(self):
+        return f'{self.user.username}\'s Profile'
+
+
+@receiver(post_save, sender=User)
+def ensure_profile_exists(sender, **kwargs):
+    if kwargs.get('created', False):
+        Profile.objects.get_or_create(user=kwargs.get('instance'))    
