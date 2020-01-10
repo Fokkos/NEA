@@ -34,7 +34,3 @@ def profile(request): #Handles the generation of a user profile page
         profileForm = updateProfile(instance=request.user.profile)
     context={"userForm" : userForm, "profileForm" : profileForm} #Context sent is the two forms
     return render (request, "users/profile.html", context) #renders the tenplate "profile.html"
-
-        
-
-

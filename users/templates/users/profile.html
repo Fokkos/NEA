@@ -4,25 +4,24 @@
 {% block content %}
     <div class = "content-section"> <!--Loads custom CSS content section (defined in styles.css)-->
         <div class="media">
-            <img src="{{user.profile.pfp.url}}" class="rounded-circle" style="width:125px;height:125px;" > <!--Loads pfp and formats as circle-->
+            <img src="{{user.profile.pfp.url}}" class="rounded-circle" style="width:125`px;height:125px;" > <!--Loads pfp and formats as circle-->
             <div class="media-body">
-                <h2 class="account-heading">{{ user.username }}</h2>
-                <p class="text-secondary">{{ user.email }}</p>
-                <p class="text-secondary">{{ user.profile.description }}</p>
+                <h2 class="account-heading">{{ user.username }}</h2> <!--Displays username-->
+                <p class="text-secondary">{{ user.email }}</p> <!--Displays Displays the user's email-->
+                <p class="text-secondary">{{ user.profile.description }}</p> <!--Displays users profile description-->
             </div>
         </div>
         <form method="POST" enctype="multipart/form-data"><!--Makes the button send a POST method-->
             {% csrf_token %}<!-- Used for helping to prevent CSRF attacks. a hidden value that validates requests making transmissions more secure-->
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Update user info </legend><!-- Legend class acts as a header for the form (bootstrap)-->
-                {{userForm.as_p}}
-                {{profileForm.as_p}}
+                {{userForm.as_p}} <!--Form for email and username-->
+                {{profileForm.as_p}} <!--Form for pfp and description-->
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Update</button><!-- Button to submit info entered-->
             </div>
         </form>
     </div>
-
 {% endblock content %}>
 
