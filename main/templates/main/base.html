@@ -60,7 +60,7 @@
     </header>
     <main role="main" class="container">
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8"> <!-- Column operating leftmost two-thirds of screen-->
           {% if messages %} <!-- If a message has been sent by the website, the following code will be executes -->
             {% for i in messages %} <!-- For loop ensures that if there are multiple messages to be displayed, they each get a turn-->
               <div class="alert alert-{{ i.tags }}"> <!--Bootstrap alert tag that flashes any kind of alert-->
@@ -70,6 +70,11 @@
             {% endfor %}
           {% endif %}
           {% block content %}{% endblock %} <!-- This is where the actual content for unique tenplates goes!-->
+        </div>
+        <div class="col-md-4"> <!-- Column operating rightmost third of screen-->
+          <div class="content-section">
+              <a href="{% url 'search' %}">Search for Post!</a>
+          </div>
         </div>
       </div>
     </main>
@@ -82,3 +87,4 @@
 </body>
 <footer>James March 2019</footer>
 </html>
+

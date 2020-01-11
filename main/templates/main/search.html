@@ -1,0 +1,18 @@
+{% extends "main/base.html" %} <!--#Imports the HTML found in the base template to use as a basis for the page -->
+{% block content %}
+<form method = "GET" action = "">
+    <input type="text" name="q" placeholder="search posts">
+</form>
+    {% for post in posts %} <!--for loop enables for many posts to be displayed at once-->
+        <article class="media content-section"> <!--the content section acts as a basis for the post preview layout-->
+        <div class="media-body">
+            <div class="article-metadata">
+            <a class="mr-2" href="#">{{ post.userID }}</a> <!--Names and links to user profile-->
+            <small class="text-muted">{{ post.published|date:"F d, Y" }}</small> <!--shows the date the post was first published-->
+            </div>
+            <h2><a class="article-title" href="#">{{ post.title }}</a></h2> <!--Displays and links to the title of the post-->
+            <p class="article-content">{{ post.content }}</p> <!--Displays the content of the post-->
+        </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

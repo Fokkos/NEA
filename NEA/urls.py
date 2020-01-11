@@ -7,7 +7,8 @@ from django.conf.urls.static import static #Imports files necessary for deployin
 
 urlpatterns = [                  #urlpatterns links urls to certain views or functions
     path('admin/', admin.site.urls), #Path to admin site
-    path('', include('main.urls')), #Path to main module
+    path('', include('main.urls'), name = "index"),#Path to main module
+    path('search/', include('main.urls'), name = "search"), #Path to main module
     path('register/', profile_views.register, name='register'), #Path to registration view
     path('login/', login_views.LoginView.as_view(template_name='users/login.html'), name = 'login'), #Path to premade django login module
     path('logout/', login_views.LogoutView.as_view(template_name='users/logout.html'), name = 'logout' ), #Path to premade django logout module

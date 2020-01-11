@@ -1,0 +1,15 @@
+{% extends "main/base.html"%}
+{% block content%}
+<form method = "GET" action = "">
+    <input type="text" name="q" placeholder="search posts">
+</form>
+<div class="col-md-8">
+    <div class="content-section">    
+        <ul>
+            <li><h1>No results found</h1></li>
+            <li><a href="{% url 'index'%}">Return to index</a></li>
+            <li><a href="{% url 'search' %}">return to search</a></li>
+        </ul>
+    </div>
+</div> 
+{% endblock %}
