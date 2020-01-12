@@ -1,16 +1,17 @@
-<!-- This template is used to define how the post creation/update page looks and functions-->
+<!-- This template is used to define how the post deletion page looks and functions-->
 {% extends "main/base.html" %}<!-- Inherits the base template, stops having to rewrite code -->
 {% block content %}
     <div class="content-section">
         <form method="POST"><!--Makes the button send a POST method-->
             {% csrf_token %}<!-- Used for helping to prevent CSRF attacks. a hidden value that validates requests making transmissions more secure-->
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4"> Post! </legend><!-- Legend class acts as a header for the form (bootstrap)-->
-                {{form.as_p}}<!-- imports the form itself and styles the form using crispy-->
+                <legend class="border-bottom mb-4"> Delete Post </legend><!-- Legend class acts as a header for the form (bootstrap)-->
+                <h3>Do you really want to delete post "{{object.title}}"</h3>
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Post</button><!-- Button to submit info entered-->
+                <button class="btn btn-outline-danger" type="submit">Yes</button><!-- Button to submit info entered-->
             </div>
+            <a href={% url 'index'%}>No, return to index</a>
         </form>
     </div>
 {% endblock content %}

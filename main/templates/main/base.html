@@ -46,7 +46,7 @@
             <div class="navbar-nav">
               <!-- Links to registration and login respectively -->
               {% if user.is_authenticated %} <!--Checks to see if user is logged in or not-->
-                <a class="nav-item nav-link" href="{% url 'post-create' %}">Create Post</a>
+                <a class="nav-item nav-link" href="{% url 'post-create' %}">Create Post</a><!--Links to post creation page-->
                 <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a> <!--Links user to logout page and logs them out-->
                 <a class="nav-item nav-link" href={% url 'profile' %}>{{user.username}}</a> <!-- Shows user their username and links to profile page-->
                 <a class="nav-item nav-link" href={% url 'profile' %}><img src="{{user.profile.pfp.url}}" class="rounded-circle" style=width:40px;height:40px;></a>
