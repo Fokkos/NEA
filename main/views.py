@@ -1,6 +1,7 @@
 #Views contains the python code used for functionality within webpages and is used for backend development
 from django.shortcuts import render #Used to render templates
 from django.views import generic 
+from django.contrib.auth.models import User #Imports the user model
 from .models import Post #Imports all of the blog posts
 from django.db.models import Q #To make queries
 from django.contrib.auth.mixins import (
@@ -9,16 +10,20 @@ from django.contrib.auth.mixins import (
 )
 
 from django.views.generic import (
+    ListView,
     DetailView, #Used when making a more detailed page for each blog post
     CreateView, #Used when making a form for users to create blog posts
     UpdateView, #Used so that a user can update a post they have posted
     DeleteView  #Used so that a user can delete a post they have posted
 )
 
-
-def index(request): #Handles the homepage and makes sure it gets rendered correctly
-    context = {'posts': Post.objects.filter(status=1).order_by('-published')} #Only shows published objects and orders by date of publication
-    return render(request, 'main/index.html', context) #Sends the context to the index template and renders it
+class index(ListView): #Defines the main page of the website (the index)
+    model = Post #Defines the model used for this class as the Post model
+    template_name = 'main/index.html' #Ensures that the template used is the index.html template
+    queryset = Post.objects.filter(status=1)  #Filters objects by whether they have been published
+    context_object_name = 'posts' #Defines how the model used will be referred to as in the template
+    ordering = ['-published'] #Orders posts by newest first
+    paginate_by = 10 #Displays 10 posts per page
 
 def search(request): #Handles how searches work on my website
     query = request.GET.get('q') #uses request.GET to get the search term, defined by URL variable "q"
@@ -28,6 +33,7 @@ def search(request): #Handles how searches work on my website
         return render(request, 'main/search.html', context) #Sends the filtered context to the index template and renders it
     else: #If there was no search made...
         return render(request, "main/initialSearch.html") #Take user to a template displaying that it is the initial search
+
 
 class viewPost(DetailView): #class which defines how individual posts are displayed
     model = Post
