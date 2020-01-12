@@ -1,6 +1,7 @@
 #models.py is used to display all models created for databases
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 #Status is used to display whether a post is published or still in the drafts
 STATUS = (
@@ -72,3 +73,7 @@ class Post(models.Model): #Defines the class as a model
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("index")
+    
