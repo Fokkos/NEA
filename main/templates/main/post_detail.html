@@ -1,0 +1,14 @@
+<!-- Used as a template for individual blog posts-->
+{% extends "main/base.html" %} <!--#Imports the HTML found in the base template to use as a basis for the page -->
+{% block content %}
+    <article class="media content-section"> <!--the content section acts as a basis for the post preview layout-->
+        <div class="media-body">
+            <div class="article-metadata">
+            <a class="mr-2" href="#">{{ object.userID }}</a> <!--Names and links to user profile-->
+            <small class="text-muted">{{ object.published|date:"F d, Y" }}</small> <!--shows the date the post was first published-->
+            </div>
+            <h2 class='article-title'>{{ object.title }}</h2> <!--Displays the title of the post-->
+            <p class="article-content">{{ object.content }}</p> <!--Displays the content of the post-->
+        </div>
+    </article>
+{% endblock content %}

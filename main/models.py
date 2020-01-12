@@ -59,6 +59,7 @@ class Post(models.Model): #Defines the class as a model
     userID = models.ForeignKey(User, on_delete= models.CASCADE,related_name='blog_posts') #Defines who created the post
     updated = models.DateTimeField(auto_now= True) #When the post was last updated / changed
     content = models.TextField() #Displays the actual content of the post
+    summary = models.CharField(max_length=100, default = "blog post")
     published = models.DateTimeField(auto_now_add=True) #Holds the date and time when the post was first published (used for ordering)
     status = models.IntegerField(choices=STATUS, default=0) #Whether the post has been published or is still being drafted
     media = models.BooleanField(default=True) #Whether the post has media or not
