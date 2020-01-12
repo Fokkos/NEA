@@ -12,23 +12,10 @@ def search(request):
     context=0
     query = request.GET.get('q')
     if query:
-        context = {'posts': Post.objects\
-        .filter(Q(title__icontains=query))\
-        #.filter(Q(content__icontains=query))\
-        #.filter(Q(tag2__icontains=query))\
-        #.filter(Q(tag2__icontains=query))\
-        .filter(status=1)\
-        .order_by('-published')}
-            #status=1,
-            #Q(title__icontains="query"),
-            #Q(content__icontains="query"),
-            #Q(userID__icontains="query"),
-            #Q(tag2__icontains="query"),
-            #Q(tag2__icontains="query",
-        #).order_by('-published')} #Only shows published objects and orders by date of publication
+        context = {'posts': Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query)).filter(status=1).order_by('-published')}
         return render(request, 'main/search.html', context) #Sends the context to the index template and renders it
     else:
-        return render(request, "main/noSearchResults.html")
+        return render(request, "main/initialSearch.html")
     
 
 

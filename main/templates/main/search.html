@@ -1,5 +1,8 @@
 {% extends "main/base.html" %} <!--#Imports the HTML found in the base template to use as a basis for the page -->
 {% block content %}
+{% if not posts %}
+    <h1>No results found</h1>
+{% endif %}
 <form method = "GET" action = "">
     <input type="text" name="q" placeholder="search posts">
 </form>
