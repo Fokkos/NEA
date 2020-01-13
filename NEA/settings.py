@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'users',
-    'crispy_forms',
+    "annoying",
 ]
 
 MIDDLEWARE = [

@@ -77,5 +77,6 @@ class Post(models.Model): #Defines the class as a model
     def get_absolute_url(self):
         return reverse("index") #Redirects user back to index once a post is created!
 
+
         
     

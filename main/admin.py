@@ -1,6 +1,6 @@
 #admin.py is used to configure the settings for the admin view of the website (available at admin/)
 from django.contrib import admin
-from .models import Post 
+from .models import Post
 
 #The below class is used to configure the admin view for all posts
 class postAdmin(admin.ModelAdmin):

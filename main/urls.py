@@ -13,3 +13,4 @@ urlpatterns = [
     path('user/<str:username>/', viewUser.as_view(), name='user-posts'), #URL for custom user profiles
 ]
 
+

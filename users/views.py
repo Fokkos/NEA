@@ -1,10 +1,23 @@
 #Views made specifically for routines and templates regarding user settings (creation, login etc)
 #Render is used for rendering templates
 #Redirect is used for redirecting users back to the homepage when an account is created
-from django.shortcuts import render, redirect
-from .forms import RegistrationForm, updateUser, updateProfile #Custom forms defined in forms.py
+from django.shortcuts import (
+    render,  #Used to render templates for function based views
+    redirect, #Used to redirect users to a specific page once a function has finished
+    get_object_or_404 #Used to render custom 404 pages
+)
+from main.models import Post
+from .forms import (
+    RegistrationForm, #Custom made user registration form
+    updateUser,  #Form made to update the User model
+    updateProfile #Form made to update the Profile model
+)
 from django.contrib import messages #Used for flash messages in register
 from django.contrib.auth.decorators import login_required #Ensures that a user must be logged in to access some pages.
+from .models import (
+    Profile, #Add-on to User model, adds pfp and description fields
+)
+from django.contrib.auth.models import User #Imports the user model
 
 
 def register(request): #Handles the user registration form and ensures that the premade Django form loads correctly
@@ -18,6 +31,7 @@ def register(request): #Handles the user registration form and ensures that the 
     else:
         form = RegistrationForm() #Sends off the UserCreation form as a blank for user to enter data into.
     return render(request, 'users/register.html', {'form':form}) #Registers the UserCreationForm as a form and sends it to the. register template
+
 
 @login_required #Means that to access this view, user must be logged in.
 def profile(request): #Handles the generation of a user profile page
