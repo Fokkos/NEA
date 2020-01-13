@@ -1,10 +1,19 @@
 <!--Template for the homepage for my website for non-logged in users. Displays most recently posted posts and displays information about them -->
-
 {% extends "main/base.html" %} <!--#Imports the HTML found in the base template to use as a basis for the page -->
 {% block content %}
+  <div class = "content-section"> <!--Loads custom CSS content section (defined in styles.css)-->
+        <div class="media">
+            <div class="media-body">
+                <h2 class="account-heading">{{ view.kwargs.username }}'s Page</h2> <!--Displays username-->
+            </div>
+        </div>
+  </div>
+  {% if not posts %}
+   <h2>No posts...</h2>
+  {% endif%}
   {% for post in posts %} <!--for loop enables for many posts to be displayed at once-->
     <article class="media content-section"> <!--the content section acts as a basis for the post preview layout-->
-    <img class="rounded-circle article-img" src="{{ post.userID.profile.pfp.url }}">
+      <img class="rounded-circle article-img" src="{{ post.userID.profile.pfp.url }}">
       <div class="media-body">
         <div class="article-metadata">
           <a class="mr-2" href="{% url "user-posts" post.userID %}">{{ post.userID }}</a> <!--Names and links to user profile-->
