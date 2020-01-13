@@ -10,6 +10,6 @@ urlpatterns = [
     path('create/',createPost.as_view(), name='post-create'), #URL for post creation
     path('<str:userID>/post/<slug:slug>/edit/', editPost.as_view(), name = 'post-update'), #URL for updating posts
     path('<str:userID>/post/<slug:slug>/delete/', deletePost.as_view(), name = 'post-delete'), #URL for updating posts
-    path('user/<str:username>/', viewUser.as_view(), name='user-posts'),
+    path('user/<str:username>/', viewUser.as_view(), name='user-posts'), #URL for custom user profiles
 ]
 

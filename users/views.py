@@ -29,8 +29,8 @@ def profile(request): #Handles the generation of a user profile page
             profileForm.save() #Saves changes to the Profile model
             messages.success(request, f"changes saved!") #Lets user know their changes have been saved to the model
             return redirect("profile") #Reloads page with GET method and fills form with updated info
-    else:
-        userForm = updateUser(instance=request.user)
+    else: #Upon first generation of the page...
+        userForm = updateUser(instance=request.user) 
         profileForm = updateProfile(instance=request.user.profile)
     context={"userForm" : userForm, "profileForm" : profileForm} #Context sent is the two forms
     return render (request, "users/profile.html", context) #renders the tenplate "profile.html"
