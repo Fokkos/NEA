@@ -32,6 +32,10 @@ class Follow(models.Model):
         )
         friend.users.remove(new_friend)
 
+    def __str__(self):
+        return f'{self.current_user.username}\'s following list'
+    
+
 
 @receiver(post_save, sender=User) #When User model is saved, the following function happens
 def create_profile(sender, **kwargs): #Defines function that creates a profile if one doesnt already exist

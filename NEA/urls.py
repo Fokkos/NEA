@@ -13,6 +13,7 @@ urlpatterns = [                  #urlpatterns links urls to certain views or fun
     path('login/', login_views.LoginView.as_view(template_name='users/login.html'), name = 'login'), #Path to premade django login module
     path('logout/', login_views.LogoutView.as_view(template_name='users/logout.html'), name = 'logout' ), #Path to premade django logout module
     path("connect/<str:operation>/<int:pk>/", profile_views.change_friends, name = 'change_friends'),
+    path('friends/', profile_views.friendsList, name = "friends_list"),
     path('profile/', profile_views.profile, name='profile'), #Path to profile view
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

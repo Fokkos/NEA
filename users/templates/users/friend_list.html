@@ -1,0 +1,9 @@
+{% extends "main/base.html" %} <!--#Imports the HTML found in the base template to use as a basis for the page -->
+{% block content %}
+    <h1>Users {{user.username}} is following</h1>
+    <div>
+        {% for friend in friends %}
+            <a class="mr-2" href="{% url "user-posts" friend.username %}">{{ friend.username }}
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -15,7 +15,8 @@ from .forms import (
 from django.contrib import messages #Used for flash messages in register
 from django.contrib.auth.decorators import login_required #Ensures that a user must be logged in to access some pages.
 from .models import (
-    Profile, #Add-on to User model, adds pfp and description fields
+    Profile,  #Add-on to User model, adds pfp and description fields
+    Follow,
 )
 from django.contrib.auth.models import User #Imports the user model
 
@@ -52,4 +53,14 @@ def profile(request): #Handles the generation of a user profile page
     return render (request, "users/profile.html", context) #renders the tenplate "profile.html"
 
 def change_friends(request, operation, pk):
-    return redirect("index")
+    new_friend = User.objects.get(pk=pk)
+    if operation == "add":
+        Follow.make_friend(request.user, new_friend)
+    elif operation == "remove":
+        Follow.lose_friend(request.user, new_friend)
+
+def friendsList(request):
+    friend = Follow.objects.get(current_user=request.user)
+    friends = friend.users.all()
+    args = { "friends": friends}
+    return render(request,"users/friend_list.html", args)

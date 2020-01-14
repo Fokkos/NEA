@@ -82,7 +82,7 @@ class deletePost(LoginRequiredMixin, UserPassesTestMixin, DeleteView): #Defines 
         else: #Otherwise...
             return False #They are rejected from the page.
     
-            
+           
 
 
 
