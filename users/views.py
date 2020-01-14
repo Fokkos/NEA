@@ -52,6 +52,7 @@ def profile(request): #Handles the generation of a user profile page
     context={"userForm" : userForm, "profileForm" : profileForm} #Context sent is the two forms
     return render (request, "users/profile.html", context) #renders the tenplate "profile.html"
 
+@login_required
 def change_friends(request, operation, username):
     new_friend = User.objects.get(username=username)
     if operation == "add":
@@ -60,6 +61,7 @@ def change_friends(request, operation, username):
         Follow.lose_friend(request.user, new_friend)
     return redirect("friends_list")
 
+@login_required
 def friendsList(request):
     friend = Follow.objects.get(current_user=request.user)
     friends = friend.users.all()
