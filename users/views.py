@@ -52,12 +52,13 @@ def profile(request): #Handles the generation of a user profile page
     context={"userForm" : userForm, "profileForm" : profileForm} #Context sent is the two forms
     return render (request, "users/profile.html", context) #renders the tenplate "profile.html"
 
-def change_friends(request, operation, pk):
-    new_friend = User.objects.get(pk=pk)
+def change_friends(request, operation, username):
+    new_friend = User.objects.get(username=username)
     if operation == "add":
         Follow.make_friend(request.user, new_friend)
     elif operation == "remove":
         Follow.lose_friend(request.user, new_friend)
+    return redirect("friends_list")
 
 def friendsList(request):
     friend = Follow.objects.get(current_user=request.user)

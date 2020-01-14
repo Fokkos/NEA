@@ -19,6 +19,7 @@ from django.views.generic import (
     UpdateView, #Used so that a user can update a post they have posted
     DeleteView  #Used so that a user can delete a post they have posted
 )
+from users.models import Follow
 
 class index(ListView): #Defines the main page of the website (the index)
     model = Post #Defines the model used for this class as the Post model
@@ -33,11 +34,12 @@ class viewUser(ListView): #Defines the main page of the website (the index)
     template_name = 'main/user_posts.html' #Ensures that the template used is the index.html template
     context_object_name = 'posts' #Defines how the model used will be referred to as in the template
     paginate_by = 10 #Displays 10 posts per page
-
+    
     def get_queryset(self): #Function to check if the user actually exists
         user = get_object_or_404(User, username=self.kwargs.get('username')) #If a user with the username in the URL exists, continue
         return Post.objects.filter(userID=user).filter(status=1).order_by("-published")
     
+
 
 def search(request): #Handles how searches work on my website
     query = request.GET.get('q') #uses request.GET to get the search term, defined by URL variable "q"

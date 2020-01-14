@@ -1,20 +1,13 @@
 Following
-
-https://www.youtube.com/watch?v=_DqmVMlJzqA&list=PLw02n0FEB3E3VSHjyYMcFadtQORvl1Ssj&index=57
-@08:49
-
-1)	- Profile has field called "follows", many to many relationship with itself that can link two users together (non-symmetrical)
-	- Need to create button on user pages that adds the author of that blog post to the user's follows list
-	- Have this button not appear if user is:
-		a) not logged in
-		b) the author of the post
-	- And if the author of the post is already being followed, have the button unfollow the author instead
-	- This should remove their name from the following list
-	- Then be able to call upon this list to create:
-		a) A friends list (ListView)
-		b) custom feed index which shows posts only from who you are following
-
-2)	- Custom feed index should only be loaded via the template if
+1)	-Change var names of Following function
+2)	-Writeup creation of:
+		a) Follow model
+		b) Follow views
+		c) friend_list.html template
+		d) subsequent changes to templates
+3)	-If user.is_authenticated(), show link to follow list in base.html
+4)	-Code comments!
+5)	- Custom feed index should only be loaded via the template if
 		a) User is logged in
 		b) User has more than 0 names in their follows list
 	- Can just be added onto regular index template and set the conditionals to ensure the right template appears

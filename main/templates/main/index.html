@@ -2,6 +2,7 @@
 
 {% extends "main/base.html" %} <!--#Imports the HTML found in the base template to use as a basis for the page -->
 {% block content %}
+<h1>Feed</h1>
   {% for post in posts %} <!--for loop enables for many posts to be displayed at once-->
     <article class="media content-section"> <!--the content section acts as a basis for the post preview layout-->
     <img class="rounded-circle article-img" src="{{ post.userID.profile.pfp.url }}">

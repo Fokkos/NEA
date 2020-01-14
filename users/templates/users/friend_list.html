@@ -1,9 +1,24 @@
 {% extends "main/base.html" %} <!--#Imports the HTML found in the base template to use as a basis for the page -->
 {% block content %}
+{% if not friends%}
+    <h1>{{user.username}} is not following anyone :(</h1>
+{% else %}
     <h1>Users {{user.username}} is following</h1>
+{% endif %}
     <div>
         {% for friend in friends %}
-            <a class="mr-2" href="{% url "user-posts" friend.username %}">{{ friend.username }}
+            <article class="media content-section"> <!--the content section acts as a basis for the post preview layout-->
+                <img class="rounded-circle article-img" src="{{ friend.profile.pfp.url }}">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="{% url "user-posts" friend.username %}">{{ friend.username }}</a> <!--Names and links to user profile-->
+                        <a href="{% url "change_friends" operation="remove" username=friend.username%}">
+                        <button type="button" class="btn btn-outline-secondary">Unfollow</button>
+                        </a>
+                    </div>
+                    <p class"article-content"> {{friend.profile.description}}</p>
+                </div>
+            </article>
         {% endfor %}
     </div>
 {% endblock %}
