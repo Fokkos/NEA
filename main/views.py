@@ -6,6 +6,7 @@ from django.shortcuts import (
 from django.views import generic 
 from django.contrib.auth.models import User #Imports the user model
 from .models import Post #Imports all of the blog posts
+from users.models import Profile #Imports user profile (extension to user model)
 from django.db.models import Q #To make queries
 from django.contrib.auth.mixins import (
     LoginRequiredMixin, #@Login.Required equivalent for class based views
@@ -81,6 +82,7 @@ class deletePost(LoginRequiredMixin, UserPassesTestMixin, DeleteView): #Defines 
         else: #Otherwise...
             return False #They are rejected from the page.
     
+            
 
 
 

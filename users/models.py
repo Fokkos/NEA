@@ -9,11 +9,28 @@ from annoying.fields import AutoOneToOneField
 class Profile(models.Model): #Defines the model that extends the User model
     user = models.OneToOneField(User, on_delete=models.CASCADE) #Defines a one-to-one model with User
     pfp = models.ImageField(default='media/pfps/default.png', upload_to='media/pfps') #Define field that will hold profile pictures
-    description = models.TextField(max_length=200, default="") #User Profile description
-    follows = models.ManyToManyField('Profile', related_name='followed_by', symmetrical=False)
+    description = models.TextField(max_length=200, default="", blank=True) #User Profile description
     
     def __str__(self): #Defines how the titles of each profile is shown in the admin view
         return f'{self.user.username}\'s Profile'
+
+class Follow(models.Model):
+    users = models.ManyToManyField(User)
+    current_user = models.ForeignKey(User, related_name="owner", on_delete=models.CASCADE, null=True)
+
+    @classmethod
+    def make_friend(cls, current_user, new_friend):
+        friend, created = cls.objects.get_or_create(
+            current_user=current_user
+        )
+        friend.users.add(new_friend)
+    
+    @classmethod
+    def lose_friend(cls, current_user, new_friend):
+        friend, created = cls.objects.get_or_create(
+            current_user=current_user
+        )
+        friend.users.remove(new_friend)
 
 
 @receiver(post_save, sender=User) #When User model is saved, the following function happens

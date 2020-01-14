@@ -1,11 +1,30 @@
 <!--Template for user profile pages -->
 {% extends "main/base.html" %} <!--#Imports the HTML found in the base template to use as a basis for the page -->
+
+
+
+{% block javascript %}
+  <script>
+    var clicked="false"
+    $('followButton')
+      .on(
+        'click',
+        function() {
+      console.log("user had pressed the button");
+      clicked=true;
+      });
+  </script>
+{% endblock %}
+
+
+
+
 {% block content %}
   <div class = "content-section"> <!--Loads custom CSS content section (defined in styles.css)-->
         <div class="media">
             <div class="media-body">
                 <h2 class="account-heading">{{ view.kwargs.username }}'s Page</h2> <!--Displays username-->
-                <a class="btn btn-outline-primary" href="{% url "follow-user"  %}">Follow!</a>
+                <input type="button" class="btn btn-outline-primary" value="Follow" name="followButton"/>
             </div>
         </div>
   </div>

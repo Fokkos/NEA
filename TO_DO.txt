@@ -1,4 +1,8 @@
 Following
+
+https://www.youtube.com/watch?v=_DqmVMlJzqA&list=PLw02n0FEB3E3VSHjyYMcFadtQORvl1Ssj&index=57
+@05:26
+
 1)	- Profile has field called "follows", many to many relationship with itself that can link two users together (non-symmetrical)
 	- Need to create button on user pages that adds the author of that blog post to the user's follows list
 	- Have this button not appear if user is:

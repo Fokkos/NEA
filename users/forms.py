@@ -20,4 +20,3 @@ class updateProfile(forms.ModelForm): #Forms to update the fields in the Profile
     class Meta:
         model=Profile #Defines the model that will be affected by this change, which is the Profile model
         fields=["description","pfp"] #defines the fields that will appear in the form and the order they appear in
-
