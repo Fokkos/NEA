@@ -6,14 +6,10 @@
         <div class="media">
             <div class="media-body">
                 <h2 class="account-heading">{{ view.kwargs.username }}'s Page</h2> <!--Displays username-->
-                {% if user.is_authenticated %}
-                  {% if object.userID == user %}
-                    <h1>Worked</h1>
-                  {% else%}
-                    <a href="{% url "change_friends" operation="add" username=view.kwargs.username%}">
-                      <button type="button" class="btn btn-success">Follow</button>
+                {% if user.is_authenticated %} <!-- Only show following if user is logged in-->
+                    <a href="{% url "manage_follow" operation="add" username=view.kwargs.username%}"><!--Option to add user account-->
+                      <button type="button" class="btn btn-success">Follow</button><!-- As a button-->
                     </a>
-                  {% endif %}
                 {% endif%}
             </div>
         </div>

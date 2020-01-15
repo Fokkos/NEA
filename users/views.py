@@ -52,18 +52,18 @@ def profile(request): #Handles the generation of a user profile page
     context={"userForm" : userForm, "profileForm" : profileForm} #Context sent is the two forms
     return render (request, "users/profile.html", context) #renders the tenplate "profile.html"
 
-@login_required
-def change_friends(request, operation, username):
-    new_friend = User.objects.get(username=username)
-    if operation == "add":
-        Follow.make_friend(request.user, new_friend)
-    elif operation == "remove":
-        Follow.lose_friend(request.user, new_friend)
-    return redirect("friends_list")
+@login_required #Means that to access this view, user must be logged in.
+def manage_follow(request, operation, username): #Manages a users follow list, adding and removing users
+    following = User.objects.get(username=username) #User that is added/removed from list is the User with matching username
+    if operation == "add": #If url has "add/"...
+        Follow.follow(request.user, following) #Redirects to follow classmethod in model
+    elif operation == "remove": #If url has "remove/"...
+        Follow.unfollow(request.user, following) #Redirects to unfollow classmethod in model
+    return redirect("following") #Redirects user to page that lists who they are following
 
-@login_required
-def friendsList(request):
-    friend = Follow.objects.get(current_user=request.user)
-    friends = friend.users.all()
-    args = { "friends": friends}
-    return render(request,"users/friend_list.html", args)
+@login_required #Means that to access this view, user must be logged in.
+def followerList(request): #Defined a page that lists all of the users the logged in user is following
+    following = Follow.objects.get(current_user=request.user) #Defines the user whos Follow object will be accessed
+    followList = following.users.all() #Attributes the list of the users followed accounts to variable "following"
+    args = { "following": followList} #Sets the arguments for the following page (list of followers)
+    return render(request,"users/following.html", args) #Renders template that displays list of followed users

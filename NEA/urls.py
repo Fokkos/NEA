@@ -11,8 +11,8 @@ urlpatterns = [                  #urlpatterns links urls to certain views or fun
     path('register/', profile_views.register, name='register'), #Path to registration view
     path('login/', login_views.LoginView.as_view(template_name='users/login.html'), name = 'login'), #Path to premade django login module
     path('logout/', login_views.LogoutView.as_view(template_name='users/logout.html'), name = 'logout' ), #Path to premade django logout module
-    path("connect/<str:operation>/<str:username>/", profile_views.change_friends, name = 'change_friends'),
-    path('friends/', profile_views.friendsList, name = "friends_list"),
+    path("connect/<str:operation>/<str:username>/", profile_views.manage_follow, name = 'manage_follow'), #Path to function that manages follows
+    path('following/', profile_views.followerList, name = "following"), #Path to following list
     path('profile/', profile_views.profile, name='profile'), #Path to profile view
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

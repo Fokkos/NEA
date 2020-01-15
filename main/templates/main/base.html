@@ -73,8 +73,10 @@
           {% block content %}{% endblock %} <!-- This is where the actual content for unique tenplates goes!-->
         </div>
         <div class="col-md-4"> <!-- Column operating rightmost third of screen-->
-          <div class="content-section">
-              <a href="{% url 'search' %}">Search for Post!</a> <!-- Links to search function-->
+              <div class="content-section"><a href="{% url 'search' %}">Search for Post!</a></div> <!-- Links to search function-->
+              {% if user.is_authenticated %}
+              <div class="content-section"><a href="{% url "following" %}">See who you are following</a></div>
+              {% endif %}
           </div>
         </div>
       </div>

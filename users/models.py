@@ -14,23 +14,21 @@ class Profile(models.Model): #Defines the model that extends the User model
     def __str__(self): #Defines how the titles of each profile is shown in the admin view
         return f'{self.user.username}\'s Profile'
 
-class Follow(models.Model):
-    users = models.ManyToManyField(User)
-    current_user = models.ForeignKey(User, related_name="owner", on_delete=models.CASCADE, null=True)
+class Follow(models.Model): #Model created to manage the follow system for the project
+    users = models.ManyToManyField(User, blank=True) #Established MtM relationship so that many users can be followed by a user
+    current_user = models.OneToOneField(User, related_name="owner", on_delete=models.CASCADE,) #Each user can have one follow model
 
     @classmethod
-    def make_friend(cls, current_user, new_friend):
-        friend, created = cls.objects.get_or_create(
-            current_user=current_user
-        )
-        friend.users.add(new_friend)
+    def follow(cls, current_user, following): #Defines how users are added to a follow list
+        follower, created = cls.objects.get_or_create( #If user already has a follower list, one is made. otehrwise their already existing list is imported
+            current_user=current_user) #Sets the current user as... the current user lol
+        follower.users.add(following) #Adds user referred to as the second arg to the current users follow list
     
     @classmethod
-    def lose_friend(cls, current_user, new_friend):
-        friend, created = cls.objects.get_or_create(
-            current_user=current_user
-        )
-        friend.users.remove(new_friend)
+    def unfollow(cls, current_user, following): #Defines how users are removed from a follow list
+        follower, created = cls.objects.get_or_create( #If user already has a follower list, one is made. otehrwise their already existing list is imported
+            current_user=current_user)  #Sets the current user as... the current user lol
+        follower.users.remove(following) #Removes user referred to as the second arg from the current users follow list
 
     def __str__(self):
         return f'{self.current_user.username}\'s following list'
@@ -41,5 +39,6 @@ class Follow(models.Model):
 def create_profile(sender, **kwargs): #Defines function that creates a profile if one doesnt already exist
     if kwargs.get('created', False): #If a Profile has not been created already, do the following
         Profile.objects.get_or_create(user=kwargs.get('instance')) #Creates a profile linked to the current instance
+        Follow.objects.get_or_create(current_user=kwargs.get('instance')) #Creates a profile linked to the current instance
 
 

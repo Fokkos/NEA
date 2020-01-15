@@ -1,0 +1,26 @@
+<!-- Template for rendering a users following list -->
+{% extends "main/base.html" %} <!--#Imports the HTML found in the base template to use as a basis for the page -->
+{% block content %}
+{% if not following%} <!-- if the following list is empty... -->
+    <h1>{{user.username}} is not following anyone :(</h1> <!-- Let the user know that theya re following nobody-->
+{% else %} <!-- Otherwise... -->
+    <h1>Users that {{user.username}} is following</h1> <!-- Display that the user is following some users-->
+{% endif %}
+    <div>
+        {% for account in following %} <!-- For every account the user is following... -->
+            <article class="media content-section"> <!--the content section acts as a basis for the post preview layout-->
+                <img class="rounded-circle article-img" src="{{ account.profile.pfp.url }}"> <!-- Displays the users pfp-->
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="{% url "user-posts" account.username %}">{{ account.username }}</a> <!--Names and links to user profile-->
+                        <a href="{% url "manage_follow" operation="remove" username=account.username%}"> <!-- Provides link to the unfollow function...-->
+                        <button type="button" class="btn btn-outline-secondary">Unfollow</button> <!-- As a button!!-->
+                        </a>
+                    </div>
+                    <p class"article-content"> {{account.profile.description}}</p> <!-- Displays the users description-->
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+{% endblock %}
+
