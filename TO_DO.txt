@@ -1,12 +1,4 @@
-Following
-1)	-Change var names of Following function
-2)	-Writeup creation of:
-		a) Follow model
-		b) Follow views
-		c) friend_list.html template
-		d) subsequent changes to templates
-3)	-If user.is_authenticated(), show link to follow list in base.html
-4)	-Code comments!
+Followings
 5)	- Custom feed index should only be loaded via the template if
 		a) User is logged in
 		b) User has more than 0 names in their follows list
