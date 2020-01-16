@@ -21,9 +21,9 @@ from django.views.generic import (
 )
 from users.models import Follow #Used for showing the users that the current user is following
 
-class index(ListView): #Defines the index of all posts
+class postIndex(ListView): #Defines the index of all posts
     model = Post #Defines the model used for this class as the Post model
-    template_name = 'main/index.html' #Ensures that the template used is the index.html template
+    template_name = 'main/post_index.html' #Ensures that the template used is the index.html template
     queryset = Post.objects.filter(status=1)  #Filters objects by whether they have been published
     context_object_name = 'posts' #Defines how the model used will be referred to as in the template
     ordering = ['-published'] #Orders posts by newest first

@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'users',
-    "annoying",
 ]
 
 MIDDLEWARE = [
@@ -121,7 +120,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/' #Defines URL where static files are stored
-LOGIN_REDIRECT_URL = 'index' #Defines URL where users are taken once logged in
+LOGIN_REDIRECT_URL = 'feed' #Defines URL where users are taken once logged in
+LOGOUT_REDIRECT_URL = "feed" #Defines URL where users are taken once logged out
 LOGIN_URL = 'login' #Defines URL where users are taken if not logged in and page requires login
 MEDIA_PATH = os.path.join(BASE_DIR, 'media') #File directory where media is stored
 MEDIA_URL = "/media/" #Public URL where media is stored

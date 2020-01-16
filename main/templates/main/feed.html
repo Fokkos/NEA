@@ -39,8 +39,8 @@
     </article>
   {% endfor %}
 {% endif %}
-{% if user.is_authenticated and not following%}
-{% else %}
+{% if user.is_authenticated and not following%} <!-- if logged in user is not following anyone, do nothing-->
+{% else %} <!-- in literally any other scenario...-->
   {% if is_paginated %} <!-- If the results have been split up into pages...-->
     {% if page_obj.has_previous %} <!-- If the page has pages before it...-->
       <a class="btn btn-outline-secondary" href="?page=1">First</a> <!--Provide a link to the first page-->
