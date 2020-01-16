@@ -1,13 +1,8 @@
-Followings
-1) 	-Document and comment on paging stuff
-	-Change urls throughout the project to go to feed instead of index lol
-	-Create seperate url for ueser and post indexes repsectively
-Uploads
+Uploads - https://stackoverflow.com/questions/3648421/only-accept-a-certain-file-type-in-filefield-server-side/27081099
 1)	- Make sure that filesizes are a sensible amount 
 		a) 300*300px for pfps
 		b) ~10MB for mp3s
 		c) for music only accept ['mp3']
-		d) for pfps only accept ['png','gif','jpg','jpeg'] (done with imageField)
 
 2)	- Make audio files appear on posts where they are uploaded
 		a) incl song name
