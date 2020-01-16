@@ -72,7 +72,7 @@ class viewPost(DetailView): #class which defines how individual posts are displa
 
 class createPost(LoginRequiredMixin, CreateView): #Class which defines how posts are created
     model = Post
-    fields = ['title', 'slug','content','summary','status','tag1','tag2'] #Fields that can be edited by user
+    fields = ['title', 'slug','content','summary','status', 'audio','tag1','tag2'] #Fields that can be edited by user
     def form_valid(self, form): 
         form.instance.userID = self.request.user #Defines the userID for the post as the ID of the current user
         return super().form_valid(form) #Returns this value to the form

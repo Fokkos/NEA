@@ -2,6 +2,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from main.validators import audioFile
+
 
 #Status is used to display whether a post is published or still in the drafts
 STATUS = (
@@ -63,7 +65,7 @@ class Post(models.Model): #Defines the class as a model
     summary = models.CharField(max_length=100, default = "blog post")
     published = models.DateTimeField(auto_now_add=True) #Holds the date and time when the post was first published (used for ordering)
     status = models.IntegerField(choices=STATUS, default=0) #Whether the post has been published or is still being drafted
-    media = models.BooleanField(default=True) #Whether the post has media or not
+    audio = models.FileField(upload_to='media/audio', validators=[audioFile], null=True)
     #Below 2 fields are used to define the tags that the posts have attributed to them. Allows for better catgorisation and analysis
     tag1 = models.IntegerField(choices=TAGS, default="none")
     tag2 = models.IntegerField(choices=TAGS, default="none")
