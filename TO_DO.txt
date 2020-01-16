@@ -1,9 +1,7 @@
 Followings
-5)	- Custom feed index should only be loaded via the template if
-		a) User is logged in
-		b) User has more than 0 names in their follows list
-	- Can just be added onto regular index template and set the conditionals to ensure the right template appears
-
+1) 	-Document and comment on paging stuff
+	-Change urls throughout the project to go to feed instead of index lol
+	-Create seperate url for ueser and post indexes repsectively
 Uploads
 1)	- Make sure that filesizes are a sensible amount 
 		a) 300*300px for pfps

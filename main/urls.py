@@ -1,6 +1,6 @@
 from . import views
 from django.urls import path
-from .views import viewPost, createPost, editPost, deletePost, index, viewUser
+from .views import viewPost, createPost, editPost, deletePost, index, viewUser, Feed
 
 #urlpatterns links urls to certain views or functions
 urlpatterns = [
@@ -11,6 +11,7 @@ urlpatterns = [
     path('<str:userID>/post/<slug:slug>/edit/', editPost.as_view(), name = 'post-update'), #URL for updating posts
     path('<str:userID>/post/<slug:slug>/delete/', deletePost.as_view(), name = 'post-delete'), #URL for updating posts
     path('user/<str:username>/', viewUser.as_view(), name='user-posts'), #URL for custom user profiles
+    path("feed/", Feed.as_view(), name = "Feed"),
 ]
 
 

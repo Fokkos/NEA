@@ -19,15 +19,31 @@ from django.views.generic import (
     UpdateView, #Used so that a user can update a post they have posted
     DeleteView  #Used so that a user can delete a post they have posted
 )
-from users.models import Follow
+from users.models import Follow #Used for showing the users that the current user is following
 
-class index(ListView): #Defines the main page of the website (the index)
+class index(ListView): #Defines the index of all posts
     model = Post #Defines the model used for this class as the Post model
     template_name = 'main/index.html' #Ensures that the template used is the index.html template
     queryset = Post.objects.filter(status=1)  #Filters objects by whether they have been published
     context_object_name = 'posts' #Defines how the model used will be referred to as in the template
     ordering = ['-published'] #Orders posts by newest first
     paginate_by = 10 #Displays 10 posts per page
+
+
+class Feed(ListView): #Defines the main page of the website (the user feed)
+    model = Post #Defines the model used for this class as the Post model
+    template_name = 'main/feed.html' #Template used is the feed template
+    paginate_by = 10 #Displays 10 posts per page
+    def get_context_data(self, **kwargs): #Defines the context that will be sent off to the template
+        context = super().get_context_data(**kwargs) 
+        try: #If the user is logged in...
+            following = Follow.objects.get(current_user=self.request.user) #Get the follow object of the current user
+            context["following"] = following.users.all() #And assign their follow list to the context "following"
+            context["posts"] = Post.objects.filter(status=1).order_by("-published") #Also assign all posts to the context
+        except: #If an error is caused (i.e. user is not logged in)...
+            context["posts"] = Post.objects.filter(status=1).order_by("-published") #Only create the posts context
+        return context #Return the context to the template
+    
 
 class viewUser(ListView): #Defines the main page of the website (the index)
     model = Post #Defines the model used for this class as the Post model
