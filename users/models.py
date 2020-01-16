@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.auth.models import User #Imports the user model
 from django.dispatch import receiver #Imports the signal reciever, used to initiate functions upon a certaon signal
 from django.db.models.signals import post_save #Signal sent at the end of a save() in order to save the files
-from annoying.fields import AutoOneToOneField
+
 # Create your models here.
 
 class Profile(models.Model): #Defines the model that extends the User model
