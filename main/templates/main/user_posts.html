@@ -1,6 +1,6 @@
 <!--Template for user profile pages -->
 {% extends "main/base.html" %} <!--#Imports the HTML found in the base template to use as a basis for the page -->
-
+{% load static %}
 {% block content %}
   <div class = "content-section"> <!--Loads custom CSS content section (defined in styles.css)-->
         <div class="media">
@@ -25,6 +25,9 @@
           <a class="mr-2" href="{% url "user-posts" post.userID %}">{{ post.userID }}</a> <!--Names and links to user profile-->
           <small class"mr-2"> {{post.userID.profile.description}}</small>
           <small class="text-muted">{{ post.published|date:"F d, Y" }}</small> <!--shows the date the post was first published-->
+          {% if post.audio %} <!-- if a post contains audio...-->
+          <img src="{% static "main/images/audio.png" %}" style="width:25px;height:25px;" title="Contains audio"> <!-- Show audio symbol -->
+          {% endif %}
         </div>
         <h2><a class="article-title" href="{% url 'post-detail' post.userID post.slug %}">{{ post.title }}</a></h2> <!--Displays and links to the title of the post-->
         <p class="article-content">{{ post.summary }}</p> <!--Displays the summary of the post-->

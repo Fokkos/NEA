@@ -14,8 +14,8 @@
             </div>
             <h2 class='article-title'>{{ object.title }}</h2> <!--Displays the title of the post-->
             <p class="article-content">{{ object.content }}</p> <!--Displays the content of the post-->
-            {% if object.audio %}
-            <div><audio controls> <source src="{{object.audio.url}}" type="audio/mpeg"> gaming </audio></div>
+            {% if object.audio %} <!-- If the post has an audio file...-->
+            <div><audio controls> <source src="{{object.audio.url}}" type="audio/mpeg"></audio></div> <!-- Play the audio file-->
             {% endif%}
         </div>
     </article>
