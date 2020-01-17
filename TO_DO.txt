@@ -1,13 +1,3 @@
-Uploads - https://stackoverflow.com/questions/3648421/only-accept-a-certain-file-type-in-filefield-server-side/27081099
-1)	- Make sure that filesizes are a sensible amount 
-		a) 300*300px for pfps
-		b) ~10MB for mp3s
-		c) for music only accept ['mp3']
-
-2)	- Make audio files appear on posts where they are uploaded
-		a) incl song name
-		b) use <audio> tag for html5 player
-
 Recommendations
 1)	- Have recommendations be based on tags that user often listens to
 	- In a ManyToOne field in the Profile, ensure that the user has a tally for each tag, and add to it each time a page is loaded which contains said tags
