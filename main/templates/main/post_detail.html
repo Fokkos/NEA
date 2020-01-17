@@ -4,7 +4,7 @@
     <article class="media content-section"> <!--the content section acts as a basis for the post preview layout-->
         <div class="media-body">
             <div class="article-metadata">
-            <a class="mr-2" href="#">{{ object.userID }}</a> <!--Names and links to user profile-->
+            <a class="mr-2" href="{% url "user-posts" object.userID %}">{{ object.userID }}</a> <!--Names and links to user profile-->
             <small class="text-muted">| {{ object.published|date:"F d, Y" }} |</small> <!--shows the date the post was first published-->
             {% if object.userID == user %}
                     <a href="{% url 'post-update' post.userID post.slug %}">Update Post</a>

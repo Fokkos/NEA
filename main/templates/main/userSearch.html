@@ -1,0 +1,29 @@
+<!-- Template for the results page following a search for particular terms by the user-->
+{% extends "main/base.html" %} <!--#Imports the HTML found in the base template to use as a basis for the page -->
+{% load static %}
+{% block content %}
+{% if not users %} <!-- If no posts are found matching the query...-->
+    <h1>No results found</h1> <!-- Report that back to the user-->
+{% endif %}
+<form method = "GET" action = ""> <!-- Search bar is a get method, meaning search result is displayed in url-->
+    <input type="text" name="q" placeholder="search users"> <!--name of data sent is called q, placeholder text is "search posts"-->
+</form>
+    {% for user in users %} <!--for loop enables for many posts to be displayed at once-->
+        <article class="media content-section"> <!--the content section acts as a basis for the post preview layout-->
+                <img class="rounded-circle article-img" src="{{ user.profile.pfp.url }}"> <!-- Displays the users pfp-->
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="{% url "user-posts" user.username %}">{{ user.username }}</a> <!--Names and links to user profile-->
+                        {% if user in following %} <!-- Ensures that posts displayed are only those made by followed users-->
+                            <a href="{% url "manage_follow" operation="remove" username=user.username%}"> <!-- Provides link to the unfollow function...-->
+                            <button type="button" class="btn btn-outline-secondary">Unfollow</button></a> <!-- As a button!!-->
+                        {% else %}
+                            <a href="{% url "manage_follow" operation="add" username=user.username%}"><!--Option to add user account-->
+                            <button type="button" class="btn btn-success">Follow</button><!-- As a button--></a>
+                        {% endif %}
+                    </div>
+                    <p class"article-content"> {{user.profile.description}}</p> <!-- Displays the users description-->
+                </div>
+            </article>
+    {% endfor %}
+{% endblock content %}

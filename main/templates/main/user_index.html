@@ -1,0 +1,43 @@
+<!--Template for the post index -->
+
+{% extends "main/base.html" %} <!--#Imports the HTML found in the base template to use as a basis for the page -->
+{% load static %}
+{% block content %}
+<h1>All users</h1>
+  {% for user in users %} <!--for loop enables for many posts to be displayed at once-->
+    <article class="media content-section"> <!--the content section acts as a basis for the post preview layout-->
+                <img class="rounded-circle article-img" src="{{ user.profile.pfp.url }}"> <!-- Displays the users pfp-->
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="{% url "user-posts" user.username %}">{{ user.username }}</a> <!--Names and links to user profile-->
+                        {% if user in following %} <!-- Ensures that posts displayed are only those made by followed users-->
+                            <a href="{% url "manage_follow" operation="remove" username=user.username%}"> <!-- Provides link to the unfollow function...-->
+                            <button type="button" class="btn btn-outline-secondary">Unfollow</button></a> <!-- As a button!!-->
+                        {% else %}
+                            <a href="{% url "manage_follow" operation="add" username=user.username%}"><!--Option to add user account-->
+                            <button type="button" class="btn btn-success">Follow</button><!-- As a button--></a>
+                        {% endif %}
+                    </div>
+                    <p class"article-content"> {{user.profile.description}}</p> <!-- Displays the users description-->
+                </div>
+            </article>
+  {% endfor %}
+  {% if is_paginated %} <!-- If the results have been split up into pages...-->
+    {% if page_obj.has_previous %} <!-- If the page has pages before it...-->
+      <a class="btn btn-outline-secondary" href="?page=1">First</a> <!--Provide a link to the first page-->
+      <a class="btn btn-outline-secondary" href="?page={{ page_obj.previous_page_number }}">Previous</a> <!-- Provide link to prev page-->
+    {% endif %}
+    {% for num in page_obj.paginator.page_range %} <!-- For the pages surrounding the current page...-->
+      {% if page_obj.number == num %} <!-- For the page the user is currently on...-->
+        <a class="btn btn-secondary" href="?page={{ num }}">{{ num }}</a> <!--Display filled in button with current page number-->
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <!--For pages 2 to each side of current page...-->
+        <a class="btn btn-outline-secondary" href="?page={{ num }}">{{ num }}</a> <!--Provide numbered links to those pages-->
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %} <!-- If there are pages after current page...-->
+      <a class="btn btn-outline-secondary" href="?page={{ page_obj.next_page_number }}">Next</a><!--Provide link to next page-->
+      <a class="btn btn-outline-secondary" href="?page={{ page_obj.paginator.num_pages }}">Last</a><!-- Provide link to last page-->
+    {% endif %}
+  {% endif %}
+{% endblock content %}
+

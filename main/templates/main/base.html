@@ -70,10 +70,12 @@
         </div>
         <div class="col-md-4"> <!-- Column operating rightmost third of screen-->
               <div class="content-section"><a href="{% url 'search' %}">Search for Post!</a></div> <!-- Links to search function-->
+              <div class="content-section"><a href="{% url 'user-search' %}">Search for User!</a></div> <!-- Links to search function-->
               {% if user.is_authenticated %}
               <div class="content-section"><a href="{% url "following" %}">See who you are following</a></div>
               {% endif %}
-              <div class="content-section"><a href="{% url 'post-index' %}">View all posts</a></div> <!-- Links to search function-->
+              <div class="content-section"><a href="{% url 'post-index' %}">View all posts</a></div> <!-- Links to post index-->
+              <div class="content-section"><a href="{% url 'user-index' %}">View all users</a></div> <!-- Links to user index-->
           </div>
         </div>
       </div>
