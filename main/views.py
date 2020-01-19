@@ -36,8 +36,11 @@ class userIndex(ListView): #Defines the index of all posts
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["users"] = User.objects.all()
-        following = Follow.objects.get(current_user=self.request.user) #Get the follow object of the current user
-        context["following"] = following.users.all() #And assign their follow list to the context "following"
+        try:
+            following = Follow.objects.get(current_user=self.request.user) #Get the follow object of the current user
+            context["following"] = following.users.all() #And assign their follow list to the context "following"
+        except:
+            following = False
         return context
     
 
@@ -58,13 +61,21 @@ class Feed(ListView): #Defines the main page of the website (the user feed)
 
 class viewUser(ListView): #Defines the main page of the website (the index)
     model = Post #Defines the model used for this class as the Post model
-    template_name = 'main/user_posts.html' #Ensures that the template used is the index.html template
-    context_object_name = 'posts' #Defines how the model used will be referred to as in the template
-    paginate_by = 10 #Displays 10 posts per page
+    template_name = 'main/user_posts.html' #Ensures that the template used is the index.html templates
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            user = get_object_or_404(User, username=self.kwargs.get('username')) #If a user with the username in the URL exists, continue
+            context["posts"] = Post.objects.filter(userID=user).filter(status=1).order_by("-published")
+            context["u"] = user
+            following = Follow.objects.get(current_user=self.request.user) #Get the follow object of the current user
+            context["following"] = following.users.all() #And assign their follow list to the context "following"
+            
+        except:
+            user = get_object_or_404(User, username=self.kwargs.get('username')) #If a user with the username in the URL exists, continue
+            context["posts"] = Post.objects.filter(userID=user).filter(status=1).order_by("-published")
+        return context
     
-    def get_queryset(self): #Function to check if the user actually exists
-        user = get_object_or_404(User, username=self.kwargs.get('username')) #If a user with the username in the URL exists, continue
-        return Post.objects.filter(userID=user).filter(status=1).order_by("-published")
 
     
     
@@ -80,15 +91,25 @@ def search(request): #Handles how searches work on my website
         return render(request, "main/initialSearch.html") #Take user to a template displaying that it is the initial search
 
 def userSearch(request): #Handles how user searches work on my website
-    query = request.GET.get('q') #uses request.GET to get the search term, defined by URL variable "q"
-    follows = Follow.objects.get(current_user=request.user) #Get the follow object of the current user
-    if query: #If there a search was made (i.e. if a q value is in the url)...
-        #below code: filters using the Q lookup of if a username contains the query
-        users =User.objects.filter(Q(username__icontains=query)) #matches the resulting users into context called "users"
-        following = follows.users.all() #assigns current users follow list to the context "following"}
-        return render(request, 'main/userSearch.html', {'users':users, "following":following}) #Sends the filtered context to the search template
-    else: #If there was no search made...
-        return render(request, "main/initialUserSearch.html") #Take user to a template displaying that it is the initial search
+    try:
+        query = request.GET.get('q') #uses request.GET to get the search term, defined by URL variable "q"
+        follows = Follow.objects.get(current_user=request.user) #Get the follow object of the current user
+        if query: #If there a search was made (i.e. if a q value is in the url)...
+            #below code: filters using the Q lookup of if a username contains the query
+            current_user = request.user
+            users =User.objects.filter(Q(username__icontains=query)) #matches the resulting users into context called "users"
+            following = follows.users.all() #assigns current users follow list to the context "following"}
+            return render(request, 'main/userSearch.html', {'users':users, "following":following, "current_user":current_user}) #Sends the filtered context to the search template
+        else: #If there was no search made...
+            return render(request, "main/initialUserSearch.html") #Take user to a template displaying that it is the initial search
+    except:
+        query = request.GET.get('q') #uses request.GET to get the search term, defined by URL variable "q"
+        if query: #If there a search was made (i.e. if a q value is in the url)...
+            #below code: filters using the Q lookup of if a username contains the query
+            users =User.objects.filter(Q(username__icontains=query)) #matches the resulting users into context called "users"
+            return render(request, 'main/userSearch.html', {'users':users}) #Sends the filtered context to the search template
+        else: #If there was no search made...
+            return render(request, "main/initialUserSearch.html") #Take user to a template displaying that it is the initial search
 
 
 class viewPost(DetailView): #class which defines how individual posts are displayed

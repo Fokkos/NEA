@@ -9,7 +9,7 @@ from django.db.models.signals import post_save #Signal sent at the end of a save
 class Profile(models.Model): #Defines the model that extends the User model
     user = models.OneToOneField(User, on_delete=models.CASCADE) #Defines a one-to-one model with User
     pfp = models.ImageField(default='media/pfps/default.png', upload_to='media/pfps') #Define field that will hold profile pictures
-    description = models.TextField(max_length=200, default="", blank=True) #User Profile description
+    description = models.TextField(max_length=70, default="", blank=True) #User Profile description
     
     def __str__(self): #Defines how the titles of each profile is shown in the admin view
         return f'{self.user.username}\'s Profile'
