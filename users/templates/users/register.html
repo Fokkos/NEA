@@ -1,6 +1,9 @@
 <!-- This template is used to define how the registration page looks and functions-->
 {% extends "main/base.html" %}<!-- Inherits the base template, stops having to rewrite code -->
 {% block content %}
+{% if user.is_authenticated %}
+    <h1> Already logged in! logout to make a new user...</h1>
+{% else%}
     <div class="content-section">
         <form method="POST"><!--Makes the button send a POST method-->
             {% csrf_token %}<!-- Used for helping to prevent CSRF attacks. a hidden value that validates requests making transmissions more secure-->
@@ -16,4 +19,5 @@
             <small class="text-muted">Have An Account? <a class="ml-2" href={% url 'login' %}>Sign In</a></small><!-- link to register page-->
         </div>
     </div>
+{% endif %}
 {% endblock content %}
