@@ -2,12 +2,11 @@
 {% extends "main/base.html" %} <!--#Imports the HTML found in the base template to use as a basis for the page -->
 {% load static %}
 {% block content %}
-{% if posts%}
   <div class = "content-section"> <!--Loads custom CSS content section (defined in styles.css)-->
         <div class="media">
           <img class="rounded-circle" src="{{ u.profile.pfp.url }}" style="width:125px;height:125px;" > <!-- Displays the users pfp-->
             <div class="media-body">
-                <h2 class="account-heading">{{ posts.first.userID }}'s Page</h2> <!--Displays username-->
+                <h2 class="account-heading">{{ u.username }}'s Page</h2> <!--Displays username-->
                 <div><p class="article-content">{{u.profile.description}}</p> </div>
                 {% if user.is_authenticated %} <!-- Only show following if user is logged in-->
                   {% if u in following %}
@@ -21,10 +20,9 @@
             </div>
         </div>
   </div>
+{% if not posts %}
+   <h2>This user has no posts</h2>
 {% endif%}
-  {% if not posts %}
-   <h2>No posts...</h2>
-  {% endif%}
   {% for post in posts %} <!--for loop enables for many posts to be displayed at once-->
     <article class="media content-section"> <!--the content section acts as a basis for the post preview layout-->
       <img class="rounded-circle article-img" src="{{ post.userID.profile.pfp.url }}">

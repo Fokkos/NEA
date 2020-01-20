@@ -29,19 +29,19 @@ class postIndex(ListView): #Defines the index of all posts
     ordering = ['-published'] #Orders posts by newest first
     paginate_by = 10 #Displays 10 posts per page
 
-class userIndex(ListView): #Defines the index of all posts
-    model = User #Defines the model used for this class as the Post model
-    template_name = 'main/user_index.html' #Ensures that the template used is the index.html template
+class userIndex(ListView): #View for functionality of the user index
+    model = User
+    template_name = 'main/user_index.html' #Defines tenplate used for this class
     paginate_by = 10 #Displays 10 posts per page
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs): #Defines the context sent to the tenplate
         context = super().get_context_data(**kwargs)
-        context["users"] = User.objects.all()
-        try:
+        context["users"] = User.objects.all() #Every object in the User model is used here
+        try: #If the user is logged in, they will have a following and thus the below can happen
             following = Follow.objects.get(current_user=self.request.user) #Get the follow object of the current user
             context["following"] = following.users.all() #And assign their follow list to the context "following"
-        except:
-            following = False
-        return context
+        except: #Otherwise...
+            following = False #It is defined that there is no following context
+        return context #context is returned to the template
     
 
 class Feed(ListView): #Defines the main page of the website (the user feed)

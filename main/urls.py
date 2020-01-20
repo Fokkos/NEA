@@ -5,7 +5,7 @@ from .views import viewPost, createPost, editPost, deletePost, postIndex, viewUs
 #urlpatterns links urls to certain views or functions
 urlpatterns = [
     path('posts/', postIndex.as_view(), name = "post-index"), #Index is the homepage and shows an index of all posts on the site
-    path('users/', userIndex.as_view(), name = "user-index"), #Index is the homepage and shows an index of all posts on the site
+    path('users/', userIndex.as_view(), name = "user-index"), #Index is the homepage and shows an index of all users on the site
     path('search/', views.search, name='search'), #URL for the search functionality of the site
     path('user_search/', views.userSearch, name='user-search'), #URL for the user search functionality of the site
     path('<str:userID>/post/<slug:slug>/', viewPost.as_view(), name = 'post-detail'), #URL for individual posts

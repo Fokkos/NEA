@@ -15,7 +15,7 @@
                     <div class="article-metadata">
                         <a class="mr-2" href="{% url "user-posts" u.username %}">{{ u.username }}</a> <!--Names and links to user profile-->
                         {% if user.is_authenticated %}
-                            {% if user in following %} <!-- Ensures that posts displayed are only those made by followed users-->
+                            {% if u in following %} <!-- Ensures that posts displayed are only those made by followed users-->
                                 <a href="{% url "manage_follow" operation="remove" username=u.username%}"> <!-- Provides link to the unfollow function...-->
                                 <button type="button" class="btn btn-outline-secondary">Unfollow</button></a> <!-- As a button!!-->
                             {% else %}

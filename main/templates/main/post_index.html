@@ -12,6 +12,7 @@
           <a class="mr-2" href="{% url "user-posts" post.userID %}">{{ post.userID }}</a> <!--Names and links to user profile-->
           <small class"mr-2"> {{post.userID.profile.description}}</small>
           <small class="text-muted">{{ post.published|date:"F d, Y" }}</small> <!--shows the date the post was first published-->
+          <small><b>{{post.tag1}} | {{post.tag2}}</b></small>
           {% if post.audio %} <!-- if a post contains audio...-->
           <img src="{% static "main/images/audio.png" %}" style="width:25px;height:25px;" title="Contains audio"> <!-- Show audio symbol -->
           {% endif %}
