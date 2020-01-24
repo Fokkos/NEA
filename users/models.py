@@ -3,7 +3,6 @@ from django.conf import settings
 from django.contrib.auth.models import User #Imports the user model
 from django.dispatch import receiver #Imports the signal reciever, used to initiate functions upon a certaon signal
 from django.db.models.signals import post_save #Signal sent at the end of a save() in order to save the files
-from django.core.validators import validate_comma_separated_integer_list
 
 # Create your models here.
 
@@ -11,7 +10,6 @@ class Profile(models.Model): #Defines the model that extends the User model
     user = models.OneToOneField(User, on_delete=models.CASCADE) #Defines a one-to-one model with User
     pfp = models.ImageField(default='media/pfps/default.png', upload_to='media/pfps') #Define field that will hold profile pictures
     description = models.TextField(max_length=70, default="", blank=True) #User Profile description
-    history = models.CharField(validators=[validate_comma_separated_integer_list], max_length=250, default ='')
     
     def __str__(self): #Defines how the titles of each profile is shown in the admin view
         return f'{self.user.username}\'s Profile'
