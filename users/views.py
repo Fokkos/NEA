@@ -43,14 +43,19 @@ def profile(request): #Handles the generation of a user profile page
         profileForm = updateProfile(request.POST, request.FILES, instance=request.user.profile) #FILES is used to access pfp file
         if userForm.is_valid and profileForm.is_valid: #Checks to see if the input data is valid or not
             userForm.save() #Saves the User model
-            profileForm.save() #Saves changes to the Profile model
-            messages.success(request, f"changes saved!") #Lets user know their changes have been saved to the model
+            try: #If the file is an image file
+                profileForm.save() #Saves changes to the Profile model
+                messages.success(request, f"changes saved!") #Lets user know their changes have been saved to the model
+            except: #Otherwise...
+                messages.warning(request, f"pfp filetype not correct") #Lets user know their changes have not been saved
             return redirect("profile") #Reloads page with GET method and fills form with updated info
     else: #Upon first generation of the page...
         userForm = updateUser(instance=request.user) 
         profileForm = updateProfile(instance=request.user.profile)
     context={"userForm" : userForm, "profileForm" : profileForm} #Context sent is the two forms
     return render (request, "users/profile.html", context) #renders the tenplate "profile.html"
+
+
 
 @login_required #Means that to access this view, user must be logged in.
 def manage_follow(request, operation, username): #Manages a users follow list, adding and removing users

@@ -114,6 +114,38 @@ def userSearch(request): #Handles how user searches work on my website
 
 class viewPost(DetailView): #class which defines how individual posts are displayed
     model = Post
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object() #Gets the current post
+        title = post.title  #This and following 2 lines gets attributes of current post to be used later
+        firstTag = post.tag1
+        secondTag = post.tag2
+        if firstTag != 0: #If the first tag is not NONE
+            if secondTag != 0: #If firstTag = not none + secondTag = not none
+                posts = Post.objects.exclude(title = title).filter(
+                    Q(tag1__icontains = firstTag) |
+                    Q(tag1__icontains = secondTag) |
+                    Q(tag2__icontains = firstTag) |
+                    Q(tag2__icontains = secondTag)).order_by("?")[:3] #shuffle queryset and get the last 3 results
+            else: #If firstTag = not none + secondTag = none
+                posts = Post.objects.exclude(title = title).filter(
+                    Q(tag1__icontains = firstTag) |
+                    Q(tag2__icontains = firstTag)).order_by("?")[:3] #shuffle queryset and get the last 3 results
+        else: #If the first tag is NONE
+            if secondTag == 0: #If firstTag = none + secondTag = none
+                posts = Post.objects.all().exclude(title = title).order_by("?")[:3] #shuffle queryset and get the last 3 results
+            else: #If firstTag = none + secondTag = not none
+                posts = Post.objects.exclude(title = title).filter(
+                    Q(tag1__icontains = secondTag) |
+                    Q(tag2__icontains = secondTag)).order_by("?")[:3] #shuffle queryset and get the last 3 results
+        if posts.all().count() > 0:
+            context["recommended"] = posts
+        else: #If only member of its tag...
+            posts = Post.objects.all().exclude(title = title).order_by("?")[:3] #shuffle queryset and get the last 3 results
+            context["recommended"] = posts
+        return context
+    
+            
 
 class createPost(LoginRequiredMixin, CreateView): #Class which defines how posts are created
     model = Post
