@@ -79,6 +79,14 @@ class Post(models.Model): #Defines the class as a model
     def get_absolute_url(self):
         return reverse("feed") #Redirects user back to feed once a post is created!
 
+class Comment(models.Model): #Defines the class as a model
+    post = models.ForeignKey(Post, on_delete= models.CASCADE,related_name='blog_posts')
+    user = models.ForeignKey(User, on_delete= models.CASCADE,related_name='commenter')
+    published = models.DateTimeField(auto_now_add=True)
+    content = models.TextField(max_length=280)
+
+    class Meta:
+        ordering = ['-published'] #Defines the ordering of the data, which is by the date it was published (newest first)
 
         
     
