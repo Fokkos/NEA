@@ -14,8 +14,11 @@ urlpatterns = [                  #urlpatterns links urls to certain views or fun
     path("connect/<str:operation>/<str:username>/", profile_views.manage_follow, name = 'manage_follow'), #Path to function that manages follows
     path('following/', profile_views.followerList, name = "following"), #Path to following list
     path('profile/', profile_views.profile, name='profile'), #Path to profile view
+    path('password-reset/', login_views.PasswordResetView.as_view(template_name = "users/password_reset.html"), name='password_reset'), #Path to change password view
+    path('password-reset/done/', login_views.PasswordResetDoneView.as_view(template_name = "users/password_reset_done.html"), name='password_reset_done'), #Path to change password done view
+    path('password-reset-confirm/<uidb64>/<token>/', login_views.PasswordResetConfirmView.as_view(template_name = "users/password_reset_confirm.html"), name='password_reset_confirm'), #Path to change password done view
+    path('password-reset-complete/', login_views.PasswordResetCompleteView.as_view(template_name = "users/password_reset_complete.html"), name='password_reset_complete'), #Path to change password view
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
 
 
 
