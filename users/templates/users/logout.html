@@ -1,6 +1,6 @@
-<!-- This template is used to define how the logout page looks and functions!-->
+<!-- This template is used to define how teh logout page looks and functions!-->
 {% extends 'main/base.html' %} <!-- Inherits the base template, stops having to rewrite code -->
 {% block content %}
     <h1>Logged out</h1>
-    <a href={% url 'feed' %}>Return to index</a> <!-- returns user to the index page when they have logged out-->
+    <a href={% url 'index' %}>Return to index</a> <!-- returns user to the index page when they have logged out-->
 {% endblock content %}

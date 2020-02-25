@@ -149,6 +149,9 @@ class viewPost(DetailView): #class which defines how individual posts are displa
             "post" : post
         }
           
+        return context
+    
+            
 
 class createPost(LoginRequiredMixin, CreateView): #Class which defines how posts are created
     model = Post

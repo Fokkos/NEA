@@ -20,30 +20,6 @@
             {% endif%}
         </div>
     </article>
-    {% if comments %}
-        <h3>Comments</h3>
-            <form action="" method="POST"> {% csrf_token %}<!--Makes the button send a POST method-->
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Post Comment </legend><!-- Legend class acts as a header for the form (bootstrap)-->
-                    {{commentForm.as_p}} <!--Form for email and username-->
-                </fieldset>
-                <div class="form-group">
-                    <input class="btn btn-outline-info" type="submit">Post</button><!-- Button to submit info entered-->
-                </div>;
-            </form>
-    {% endif %}
-    {% for comment in comments%}
-        <article class="media content-section"> <!--the content section acts as a basis for the post preview layout-->
-            <img class="rounded-circle article-img" src="{{ comment.user.profile.pfp.url }}"> <!-- Displays the users pfp-->
-            <div class="media-body">
-                <div class="article-metadata">
-                    <a class="mr-2" href="{% url "user-posts" comment.user.username %}">{{ comment.user.username }}</a> <!--Names and links to user profile-->
-                    <small>{{comment.published|date:"F d, Y"}}</small>
-                </div>
-                <p class"article-content"> {{comment.content}}</p> <!-- Displays the users description-->
-            </div>
-        </article>
-    {% endfor%}
     <h3>Recommended posts</h3> <!-- there will always be recommended posts so it is okay to always have this here lol-->
     {% for post in recommended %}
         <article class="media content-section"> <!--the content section acts as a basis for the post preview layout-->
@@ -63,5 +39,4 @@
             </div>
         </article>
     {% endfor %}
-
 {% endblock content %}

@@ -12,4 +12,3 @@ class postAdmin(admin.ModelAdmin):
 #Registers classes into the admin site and allows for them to be edited
 admin.site.register(Post, postAdmin) 
 
-
