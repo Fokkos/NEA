@@ -5,7 +5,7 @@ from django.shortcuts import (
 ) 
 from django.views import generic 
 from django.contrib.auth.models import User #Imports the user model
-from .models import Post, Comment #Imports all of the blog posts
+from .models import Post #Imports all of the blog posts
 from users.models import Profile #Imports user profile (extension to user model)
 from django.db.models import Q #To make queries
 from django.contrib.auth.mixins import (
@@ -20,7 +20,6 @@ from django.views.generic import (
     DeleteView  #Used so that a user can delete a post they have posted
 )
 from users.models import Follow #Used for showing the users that the current user is following
-from .forms import CommentForm
 
 class postIndex(ListView): #Defines the index of all posts
     model = Post #Defines the model used for this class as the Post model
@@ -144,18 +143,11 @@ class viewPost(DetailView): #class which defines how individual posts are displa
         else: #If only member of its tag...
             posts = Post.objects.all().exclude(title = title).order_by("?")[:3] #shuffle queryset and get the last 3 results
             context["recommended"] = posts
-        comments = Comment.objects.filter(post=post).order_by("-published")
-        context["comments"] = comments
-
 
         initial_data = {
             "user" : self.request.user,
             "post" : post
         }
-        commentForm = CommentForm(self.request.POST or None, initial=initial_data)
-
-        context["commentForm"] = commentForm
-        return context
           
 
 class createPost(LoginRequiredMixin, CreateView): #Class which defines how posts are created
